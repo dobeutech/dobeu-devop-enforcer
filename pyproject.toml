@@ -1,0 +1,99 @@
+[tool.poetry]
+name = "dobeu-undertaker"
+version = "0.1.0"
+description = "DevOps standards enforcement and agent orchestrator for Dobeu Tech Solutions LLC"
+authors = ["Dobeu Tech Solutions LLC <jeremyw@dobeu.net>"]
+license = "Proprietary"
+readme = "README.md"
+packages = [{include = "dobeu_undertaker", from = "src"}]
+keywords = ["devops", "agent", "orchestrator", "compliance", "claude", "ai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Quality Assurance",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+claude-agent-sdk = "^0.1.14"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+pyyaml = "^6.0.1"
+azure-devops = "^7.1.0b4"
+azure-identity = "^1.15.0"
+azure-monitor-opentelemetry = "^1.2.0"
+azure-keyvault-secrets = "^4.7.0"
+opentelemetry-api = "^1.22.0"
+opentelemetry-sdk = "^1.22.0"
+httpx = "^0.26.0"
+rich = "^13.7.0"
+typer = "^0.9.0"
+structlog = "^24.1.0"
+tenacity = "^8.2.3"
+aiofiles = "^23.2.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+ruff = "^0.1.14"
+pyright = "^1.1.350"
+pre-commit = "^3.6.0"
+respx = "^0.20.2"
+
+[tool.poetry.scripts]
+dobeu-undertaker = "dobeu_undertaker.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "PTH",    # flake8-use-pathlib
+    "ERA",    # eradicate
+    "PL",     # Pylint
+    "RUF",    # Ruff-specific
+]
+ignore = ["PLR0913", "PLR2004"]
+
+[tool.ruff.isort]
+known-first-party = ["dobeu_undertaker"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+typeCheckingMode = "strict"
+include = ["src"]
+exclude = ["tests", "**/__pycache__"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-v --cov=dobeu_undertaker --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/dobeu_undertaker"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]

@@ -1,0 +1,112 @@
+# Dobeu TypeScript Standards
+# Standards specific to TypeScript/JavaScript projects
+# Inherits from: dobeu-base
+# Version: 1.0.0
+
+name: dobeu-typescript
+version: "1.0"
+description: TypeScript/JavaScript standards for Dobeu Tech Solutions
+inherits:
+  - dobeu-base
+
+# TypeScript-specific standards
+standards:
+  # Formatting (Prettier compatible)
+  line_length: 100
+  indent_size: 2  # 2 spaces for TS/JS
+  quote_style: single  # single quotes for JS
+  semicolons: true
+  trailing_comma: es5
+
+  # TypeScript version
+  min_typescript_version: "5.0"
+  min_node_version: "18"
+
+  # Strict mode
+  strict_mode: true
+  no_any: true  # warn on `any` usage
+  no_implicit_any: true
+
+# Required files
+required_files:
+  typescript:
+    - package.json
+    - tsconfig.json
+    - .nvmrc  # Node version specification
+  javascript:
+    - package.json
+
+# Recommended files
+recommended_files:
+  - .prettierrc
+  - .eslintrc.js  # or eslint.config.js
+  - .nvmrc
+
+# ESLint configuration
+linting:
+  tool: eslint
+  extends:
+    - eslint:recommended
+    - plugin:@typescript-eslint/recommended
+    - plugin:@typescript-eslint/recommended-requiring-type-checking
+  plugins:
+    - "@typescript-eslint"
+    - import
+  rules:
+    "@typescript-eslint/explicit-function-return-type": warn
+    "@typescript-eslint/no-explicit-any": error
+    "@typescript-eslint/no-unused-vars": error
+    "import/order":
+      - error
+      - groups:
+          - builtin
+          - external
+          - internal
+          - parent
+          - sibling
+          - index
+
+# Prettier configuration
+formatting:
+  tool: prettier
+  options:
+    printWidth: 100
+    tabWidth: 2
+    useTabs: false
+    semi: true
+    singleQuote: true
+    trailingComma: es5
+    bracketSpacing: true
+    arrowParens: avoid
+
+# TypeScript compiler options
+tsconfig:
+  strict: true
+  noImplicitAny: true
+  strictNullChecks: true
+  noUnusedLocals: true
+  noUnusedParameters: true
+  noImplicitReturns: true
+  esModuleInterop: true
+  skipLibCheck: true
+  forceConsistentCasingInFileNames: true
+
+# Testing configuration
+testing:
+  frameworks:
+    - jest
+    - vitest
+  coverage_tool: c8  # or istanbul
+  min_coverage: 80
+
+# Package manager preferences
+package_manager:
+  preferred: pnpm  # pnpm, npm, yarn
+  require_lockfile: true
+  require_engine_specification: true
+
+# Build configuration
+build:
+  output_dir: dist
+  source_maps: true
+  declaration_files: true  # .d.ts files

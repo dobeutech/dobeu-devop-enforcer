@@ -1,0 +1,84 @@
+# Dobeu Base Standards
+# Foundation standards that apply to all Dobeu Tech Solutions repositories
+# Version: 1.0.0
+
+name: dobeu-base
+version: "1.0"
+description: Base standards for all Dobeu Tech Solutions repositories
+
+# Code Style Standards
+standards:
+  # Formatting
+  line_length: 100
+  indent_size: 4
+  quote_style: double
+
+  # Naming Conventions
+  file_naming: snake_case
+  class_naming: PascalCase
+  function_naming: snake_case
+
+  # Testing Requirements
+  min_coverage_percent: 80
+  require_unit_tests: true
+  require_integration_tests: false
+
+  # Documentation Requirements
+  require_readme: true
+  require_changelog: true
+  require_docstrings: true
+
+  # Security
+  block_secrets: true
+  require_security_review: false
+  allowed_licenses:
+    - MIT
+    - Apache-2.0
+    - BSD-3-Clause
+    - ISC
+    - MPL-2.0
+
+  # Dependencies
+  max_dependency_age_days: 365
+  block_vulnerable_deps: true
+  require_lockfile: true
+
+  # Git Workflow
+  branch_naming_pattern: "^(feature|bugfix|hotfix|release|chore)/[a-z0-9-]+$"
+  commit_message_pattern: "^(feat|fix|docs|style|refactor|test|chore)(\\(.+\\))?: .{10,}$"
+  require_linear_history: true
+
+# Required Files
+required_files:
+  all:
+    - README.md
+    - LICENSE
+    - .gitignore
+  public:
+    - CONTRIBUTING.md
+    - SECURITY.md
+    - CODE_OF_CONDUCT.md
+
+# Disabled Rules (empty by default)
+disabled_rules: []
+
+# Agent Configuration
+agents:
+  enabled_agents: null  # null means all enabled
+  disabled_agents: []
+  parallel_execution: true
+  max_concurrent_agents: 6
+
+# Monitoring
+monitoring:
+  enable_tracing: true
+  enable_metrics: true
+  log_level: INFO
+  export_to_azure: true
+
+# Notifications
+notifications:
+  enabled: true
+  notify_on_critical: true
+  notify_on_high: true
+  notify_on_warning: false

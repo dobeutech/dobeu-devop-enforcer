@@ -1,0 +1,145 @@
+# Dobeu Infrastructure Standards
+# Standards for infrastructure-as-code and DevOps configurations
+# Inherits from: dobeu-base
+# Version: 1.0.0
+
+name: dobeu-infrastructure
+version: "1.0"
+description: Infrastructure and DevOps standards for Dobeu Tech Solutions
+inherits:
+  - dobeu-base
+
+# Infrastructure-specific standards
+standards:
+  # IaC tools
+  terraform_version: ">= 1.5.0"
+  ansible_version: ">= 2.14"
+
+  # Container standards
+  dockerfile_best_practices: true
+  multi_stage_builds: true
+  non_root_user: true
+  no_latest_tag: true
+
+  # Kubernetes
+  resource_limits_required: true
+  security_context_required: true
+  network_policies_required: false
+
+# Required files for infrastructure repos
+required_files:
+  terraform:
+    - main.tf
+    - variables.tf
+    - outputs.tf
+    - versions.tf
+    - README.md
+  kubernetes:
+    - kustomization.yaml  # or helm Chart.yaml
+  docker:
+    - Dockerfile
+    - .dockerignore
+
+# Dockerfile standards
+dockerfile:
+  # Base image requirements
+  allowed_base_images:
+    - python:3.11-slim
+    - python:3.12-slim
+    - node:18-alpine
+    - node:20-alpine
+    - alpine:3.18
+    - ubuntu:22.04
+    - mcr.microsoft.com/dotnet/*
+
+  # Security requirements
+  no_root: true
+  healthcheck_required: true
+  no_add_with_url: true  # Use COPY instead
+  no_sudo: true
+
+  # Best practices
+  use_multi_stage: true
+  minimize_layers: true
+  order_commands_by_frequency: true  # Less changing commands first
+
+# Terraform standards
+terraform:
+  # Module structure
+  require_variables_description: true
+  require_outputs_description: true
+  require_version_constraints: true
+
+  # Naming conventions
+  resource_naming_pattern: "^[a-z][a-z0-9_-]*$"
+  variable_naming: snake_case
+
+  # Security
+  no_hardcoded_secrets: true
+  encrypt_state: true
+  require_tags:
+    - Environment
+    - Project
+    - Owner
+    - ManagedBy
+
+  # State management
+  remote_state_required: true
+  state_locking_required: true
+
+# Kubernetes standards
+kubernetes:
+  # Resource requirements
+  require_resource_limits: true
+  require_resource_requests: true
+
+  # Security
+  require_security_context: true
+  no_privileged_containers: true
+  read_only_root_filesystem: true
+  no_host_network: true
+  no_host_pid: true
+
+  # Labels
+  required_labels:
+    - app.kubernetes.io/name
+    - app.kubernetes.io/version
+    - app.kubernetes.io/component
+    - app.kubernetes.io/managed-by
+
+  # Probes
+  require_liveness_probe: true
+  require_readiness_probe: true
+
+# CI/CD standards
+cicd:
+  # Azure DevOps
+  require_pipeline_yaml: true
+  require_environments: true
+  require_approvals_for_prod: true
+
+  # Security scanning
+  require_sast: true  # Static Application Security Testing
+  require_dast: false  # Dynamic Application Security Testing
+  require_dependency_scan: true
+  require_container_scan: true
+
+  # Deployment
+  blue_green_deployment: false
+  canary_deployment: false
+  require_rollback_plan: true
+
+# Secrets management
+secrets:
+  provider: azure_keyvault  # azure_keyvault, hashicorp_vault, aws_secrets_manager
+  no_plaintext_secrets: true
+  rotate_secrets_days: 90
+  audit_secret_access: true
+
+# Monitoring and alerting
+monitoring:
+  require_health_endpoints: true
+  require_metrics_endpoint: true
+  require_structured_logging: true
+  log_format: json
+  require_correlation_ids: true

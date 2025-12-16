@@ -1,0 +1,170 @@
+# Dobeu Undertaker Pipeline Template
+# Include this template in your repository's azure-pipelines.yml to enable
+# automatic compliance scanning on pull requests and commits.
+#
+# Usage in your azure-pipelines.yml:
+#
+# resources:
+#   repositories:
+#     - repository: undertaker
+#       type: github
+#       name: dobeutech/dobeu-undertaker
+#       ref: main
+#
+# extends:
+#   template: templates/azure-pipeline-template.yml@undertaker
+#   parameters:
+#     scanOnPR: true
+#     failOnCritical: true
+
+parameters:
+  # Enable scanning on pull requests
+  - name: scanOnPR
+    type: boolean
+    default: true
+
+  # Enable scanning on main branch commits
+  - name: scanOnMain
+    type: boolean
+    default: true
+
+  # Fail the build on critical issues
+  - name: failOnCritical
+    type: boolean
+    default: true
+
+  # Fail the build on high-severity issues
+  - name: failOnHigh
+    type: boolean
+    default: false
+
+  # Custom config file path (optional)
+  - name: configPath
+    type: string
+    default: ".dobeu/config.yaml"
+
+  # Agents to run (comma-separated, empty = all)
+  - name: agents
+    type: string
+    default: ""
+
+  # Skip specific agents
+  - name: skipAgents
+    type: string
+    default: ""
+
+  # Python version for the scan
+  - name: pythonVersion
+    type: string
+    default: "3.11"
+
+stages:
+  - stage: ComplianceScan
+    displayName: "Dobeu Compliance Scan"
+    condition: |
+      or(
+        and(${{ parameters.scanOnPR }}, eq(variables['Build.Reason'], 'PullRequest')),
+        and(${{ parameters.scanOnMain }}, eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      )
+    jobs:
+      - job: Scan
+        displayName: "Run Compliance Scan"
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - checkout: self
+            fetchDepth: 0
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "${{ parameters.pythonVersion }}"
+            displayName: "Use Python ${{ parameters.pythonVersion }}"
+
+          - script: |
+              pip install dobeu-undertaker
+            displayName: "Install Dobeu Undertaker"
+
+          - script: |
+              # Build command with optional parameters
+              CMD="dobeu-undertaker scan --repo $(Build.SourcesDirectory)"
+
+              if [ -f "${{ parameters.configPath }}" ]; then
+                CMD="$CMD --config ${{ parameters.configPath }}"
+              fi
+
+              # Run scan and capture output
+              $CMD --output scan-results.json || true
+
+              # Parse results for PR comment
+              python3 << 'EOF'
+              import json
+              import sys
+
+              try:
+                  with open('scan-results.json') as f:
+                      results = json.load(f)
+
+                  critical = results.get('summary', {}).get('critical', 0)
+                  high = results.get('summary', {}).get('high', 0)
+                  total = results.get('summary', {}).get('total_issues', 0)
+
+                  print(f"##vso[task.setvariable variable=criticalCount]{critical}")
+                  print(f"##vso[task.setvariable variable=highCount]{high}")
+                  print(f"##vso[task.setvariable variable=totalIssues]{total}")
+
+                  # Set overall result
+                  if critical > 0:
+                      print("##vso[task.setvariable variable=scanResult]critical")
+                  elif high > 0:
+                      print("##vso[task.setvariable variable=scanResult]high")
+                  elif total > 0:
+                      print("##vso[task.setvariable variable=scanResult]warning")
+                  else:
+                      print("##vso[task.setvariable variable=scanResult]passed")
+              except Exception as e:
+                  print(f"##vso[task.logissue type=warning]Failed to parse results: {e}")
+                  print("##vso[task.setvariable variable=scanResult]error")
+              EOF
+            displayName: "Run Compliance Scan"
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: "scan-results.json"
+              artifactName: "compliance-report"
+            displayName: "Publish Scan Results"
+
+          # Post PR comment with results
+          - task: GitHubComment@0
+            condition: eq(variables['Build.Reason'], 'PullRequest')
+            inputs:
+              gitHubConnection: "GitHub"
+              repositoryName: "$(Build.Repository.Name)"
+              id: "$(System.PullRequest.PullRequestNumber)"
+              comment: |
+                ## 🔍 Dobeu Compliance Scan Results
+
+                | Metric | Count |
+                |--------|-------|
+                | Critical | $(criticalCount) |
+                | High | $(highCount) |
+                | Total Issues | $(totalIssues) |
+
+                **Status:** $(scanResult)
+
+                [View Full Report]($(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)&view=artifacts)
+            displayName: "Post PR Comment"
+
+          # Fail build based on parameters
+          - script: |
+              if [ "${{ parameters.failOnCritical }}" = "true" ] && [ "$(criticalCount)" -gt "0" ]; then
+                echo "##vso[task.logissue type=error]Critical compliance issues found!"
+                exit 1
+              fi
+
+              if [ "${{ parameters.failOnHigh }}" = "true" ] && [ "$(highCount)" -gt "0" ]; then
+                echo "##vso[task.logissue type=error]High-severity compliance issues found!"
+                exit 1
+              fi
+
+              echo "Compliance scan completed successfully"
+            displayName: "Check Thresholds"

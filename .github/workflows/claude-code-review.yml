@@ -1,0 +1,50 @@
+# Automated Claude code review on every pull request.
+# Posts review feedback as a comment. Read-only by default (no code changes).
+#
+# Prerequisites: Claude GitHub App installed + ANTHROPIC_API_KEY secret.
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    # Optional: only review certain paths / skip drafts (see `if` below).
+    # paths:
+    #   - "src/**"
+    #   - "**/*.ts"
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  claude-review:
+    # Skip draft PRs and PRs from forks (forks can't access secrets anyway).
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write   # to post the review comment
+      issues: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude code review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this pull request. Focus on:
+            - Correctness and edge cases
+            - Security issues (injection, authz, secrets, unsafe input)
+            - Performance problems (N+1 queries, needless allocations)
+            - Test coverage for the change
+            - Adherence to the conventions in CLAUDE.md
+            Be concise. Flag only real issues, grouped by severity. If the PR
+            looks good, say so briefly.
+          claude_args: |
+            --max-turns 8

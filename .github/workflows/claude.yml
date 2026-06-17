@@ -1,0 +1,59 @@
+# Interactive Claude Code agent.
+# Triggers when someone writes "@claude ..." in an issue, PR comment, PR review,
+# or new issue. Claude can answer, implement changes, and push to a branch / PR.
+#
+# Prerequisites (see SETUP-GUIDE.md):
+#   1. Install the Claude GitHub App on this repo.
+#   2. Add repo secret ANTHROPIC_API_KEY (or CLAUDE_CODE_OAUTH_TOKEN).
+name: Claude Code
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+# Avoid piling up runs / hitting API rate limits on busy threads.
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    # Only run when "@claude" is actually present in the triggering text.
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Least privilege: this is the maximum the agent can do. Trim anything
+    # you don't need.
+    permissions:
+      contents: write        # create branches / commits
+      pull-requests: write   # open / comment on PRs
+      issues: write          # comment on issues
+      id-token: write        # OIDC (needed for some auth modes)
+      actions: read          # let Claude read CI results on the PR
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # If you authenticate with an OAuth token instead, use:
+          # claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # Optional tuning. The agent reads CLAUDE.md for project conventions.
+          claude_args: |
+            --max-turns 15
+            --allowedTools "Bash(npm install),Bash(npm run build),Bash(npm run test:*),Bash(npm run lint:*)"

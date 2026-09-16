@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/internal-foundation/v1",
+  "title": "Dobeu internal foundation state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "snapshot_id",
+    "observed_at",
+    "external_writes_allowed",
+    "baseline_artifacts",
+    "sources",
+    "connections",
+    "projects",
+    "memory_candidates",
+    "tasks",
+    "handoffs",
+    "usage_outcomes",
+    "approvals",
+    "revenue_events",
+    "conflicts"
+  ],
+  "properties": {
+    "schema": {"const": "internal-foundation/v1"},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "external_writes_allowed": {"const": false},
+    "baseline_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {"type": "string", "pattern": "^(portfolio|spec.md)"},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "sources": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/source-evidence/v1"}},
+    "connections": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/connection/v1"}},
+    "projects": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/project-mapping/v1"}},
+    "memory_candidates": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/memory-candidate/v1"}},
+    "tasks": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/task-envelope/v1"}},
+    "handoffs": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/agent-handoff/v1"}},
+    "usage_outcomes": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/usage-outcome/v1"}},
+    "approvals": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/approval/v1"}},
+    "revenue_events": {"type": "array", "items": {"$ref": "https://dobeu.tech/schemas/revenue-event/v1"}},
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_id", "subject", "status", "evidence_refs", "resolution_required"],
+        "properties": {
+          "conflict_id": {"type": "string", "minLength": 1},
+          "subject": {"type": "string", "minLength": 1},
+          "status": {"enum": ["open", "resolved"]},
+          "evidence_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 2,
+            "uniqueItems": true
+          },
+          "resolution_required": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

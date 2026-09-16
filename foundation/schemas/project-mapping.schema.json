@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/project-mapping/v1",
+  "title": "External project mapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project_id",
+    "provider",
+    "project_alias",
+    "status",
+    "mapping_status",
+    "repository_id",
+    "deployment_id",
+    "data_owner",
+    "data_class",
+    "backup_verified",
+    "monthly_cost_usd",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema": {"const": "project-mapping/v1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "project_alias": {"type": "string", "minLength": 1},
+    "status": {"enum": ["active", "inactive", "unknown"]},
+    "mapping_status": {"enum": ["mapped", "unmapped", "blocked"]},
+    "repository_id": {"type": ["string", "null"]},
+    "deployment_id": {"type": ["string", "null"]},
+    "data_owner": {"type": ["string", "null"]},
+    "data_class": {
+      "enum": ["public", "internal", "confidential", "restricted", "unknown"]
+    },
+    "backup_verified": {"type": ["boolean", "null"]},
+    "monthly_cost_usd": {"type": ["number", "null"], "minimum": 0},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

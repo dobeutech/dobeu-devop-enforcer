@@ -1,0 +1,8 @@
+{
+  "$schema": "revenue-ledger/v1",
+  "currency": "USD",
+  "period_start": "2026-09-11",
+  "period_end": "2027-09-10",
+  "cost_scope": "User-reported software subscriptions in cost-map.json. Labor, taxes, payment fees, and unreported operating costs are not included until evidence is added.",
+  "opportunities": []
+}

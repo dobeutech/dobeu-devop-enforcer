@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/connection/v1",
+  "title": "Connection capability record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "connection_id",
+    "provider",
+    "account_alias",
+    "tenant_alias",
+    "status",
+    "owner",
+    "data_classes",
+    "capabilities",
+    "effective_scopes",
+    "allowed_actions",
+    "prohibited_actions",
+    "last_verified_at",
+    "evidence_refs",
+    "pagination_complete",
+    "failures"
+  ],
+  "properties": {
+    "schema": {"const": "connection/v1"},
+    "connection_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "account_alias": {"type": ["string", "null"]},
+    "tenant_alias": {"type": ["string", "null"]},
+    "status": {
+      "enum": ["ready", "partial", "denied", "conflict", "not_configured"]
+    },
+    "owner": {"type": ["string", "null"]},
+    "data_classes": {
+      "type": "array",
+      "items": {"enum": ["public", "internal", "confidential", "restricted"]},
+      "uniqueItems": true
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "effective_scopes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "allowed_actions": {
+      "type": "array",
+      "items": {"enum": ["read", "normalize", "validate", "report"]},
+      "uniqueItems": true
+    },
+    "prohibited_actions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "last_verified_at": {"type": ["string", "null"], "format": "date-time"},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "pagination_complete": {"type": ["boolean", "null"]},
+    "failures": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

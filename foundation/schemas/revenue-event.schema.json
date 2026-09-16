@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/revenue-event/v1",
+  "title": "Revenue evidence event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "event_id",
+    "opportunity_id",
+    "kind",
+    "status",
+    "amount_usd",
+    "collected_at",
+    "evidence_ref",
+    "unaffiliated_customer"
+  ],
+  "properties": {
+    "schema": {"const": "revenue-event/v1"},
+    "event_id": {"type": "string", "minLength": 1},
+    "opportunity_id": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["payment", "refund"]},
+    "status": {"enum": ["pending", "settled", "failed", "refunded"]},
+    "amount_usd": {"type": "number", "exclusiveMinimum": 0},
+    "collected_at": {"type": ["string", "null"], "format": "date-time"},
+    "evidence_ref": {"type": ["string", "null"]},
+    "unaffiliated_customer": {"type": "boolean"}
+  }
+}

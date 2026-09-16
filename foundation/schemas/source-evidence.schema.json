@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/source-evidence/v1",
+  "title": "Source evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "source_id",
+    "source_system",
+    "observed_at",
+    "status",
+    "authoritative",
+    "evidence_ref",
+    "artifact_sha256",
+    "source_revision",
+    "data_class",
+    "allowed_actions",
+    "coverage",
+    "gap"
+  ],
+  "properties": {
+    "schema": {"const": "source-evidence/v1"},
+    "source_id": {"type": "string", "minLength": 1},
+    "source_system": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "status": {
+      "enum": ["complete", "partial", "denied", "stale", "excluded", "conflict"]
+    },
+    "authoritative": {"type": "boolean"},
+    "evidence_ref": {"type": "string", "minLength": 1},
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source_revision": {"type": ["string", "null"]},
+    "data_class": {
+      "enum": ["public", "internal", "confidential", "restricted"]
+    },
+    "allowed_actions": {
+      "type": "array",
+      "items": {"enum": ["read", "normalize", "validate", "report"]},
+      "uniqueItems": true
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_records", "processed_records", "complete"],
+      "properties": {
+        "expected_records": {"type": ["integer", "null"], "minimum": 0},
+        "processed_records": {"type": "integer", "minimum": 0},
+        "complete": {"type": "boolean"}
+      }
+    },
+    "gap": {"type": ["string", "null"]}
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/agent-handoff/v1",
+  "title": "Agent handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "run_id",
+    "task_id",
+    "role",
+    "status",
+    "objective",
+    "claims",
+    "evidence",
+    "coverage",
+    "artifacts",
+    "unknowns",
+    "metrics",
+    "recommended_next_action",
+    "memory_candidate_ids"
+  ],
+  "properties": {
+    "schema": {"const": "agent-handoff/v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "role": {"type": "string", "minLength": 1},
+    "status": {"enum": ["complete", "partial", "blocked"]},
+    "objective": {"type": "string", "minLength": 1},
+    "claims": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected", "processed", "pages", "complete"],
+      "properties": {
+        "expected": {"type": ["integer", "null"], "minimum": 0},
+        "processed": {"type": "integer", "minimum": 0},
+        "pages": {"type": "integer", "minimum": 0},
+        "complete": {"type": "boolean"}
+      }
+    },
+    "artifacts": {"type": "array", "items": {"type": "object"}},
+    "unknowns": {"type": "array", "items": {"type": "string"}},
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool_calls", "input_tokens", "output_tokens", "elapsed_ms", "cost_usd"],
+      "properties": {
+        "tool_calls": {"type": "integer", "minimum": 0},
+        "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "elapsed_ms": {"type": "integer", "minimum": 0},
+        "cost_usd": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "recommended_next_action": {"type": "string"},
+    "memory_candidate_ids": {"type": "array", "items": {"type": "string"}}
+  }
+}

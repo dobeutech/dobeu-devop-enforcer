@@ -1,0 +1,71 @@
+{
+  "$schema": "revenue-launch-readiness/v1",
+  "observed_at": "2026-09-11T19:49:04Z",
+  "offer_id": "staffing_workflow_diagnostic",
+  "overall_status": "internal_pack_complete_external_launch_awaiting_approval",
+  "safe_launch_boundary": "Publish the $750 diagnostic application only after offer/terms approval and use a verified provider-hosted or manual invoice. Do not deploy customer-specific staffing code or DobeuCloud's current checkout.",
+  "gates": [
+    {
+      "id": "portfolio-priority",
+      "status": "passed",
+      "evidence": "All 87 discoverable public repositories are ranked; the staffing diagnostic is the highest near-term revenue motion."
+    },
+    {
+      "id": "offer-and-price",
+      "status": "passed_internal",
+      "evidence": "Buyer, pain, diagnostic deliverables, exclusions, $750 price, $2,000 implementation anchor, and $400 monitoring anchor are versioned in offer/landing-page.md."
+    },
+    {
+      "id": "qualification",
+      "status": "passed_internal",
+      "evidence": "Structured intake and deterministic fit/risk triage pass the synthetic test fixture."
+    },
+    {
+      "id": "delivery-controls",
+      "status": "passed_internal",
+      "evidence": "Diagnostic, SOW, outcome report, repository retirement, and evidence-based revenue controls are versioned."
+    },
+    {
+      "id": "source-readiness",
+      "status": "failed_for_product_launch",
+      "evidence": "Targeted source audit found compile, testing, mocked-flow, unsupported-claim, and payment-verification blockers."
+    },
+    {
+      "id": "customer-rights",
+      "status": "awaiting_evidence",
+      "evidence": "Customer-specific code/data/brand reuse authority for unique-staffing-prof has not been established."
+    },
+    {
+      "id": "rights-safe-demo",
+      "status": "blocked",
+      "evidence": "Synthetic demo plan exists, but build repair, isolation, tests, and public-use approval have not passed."
+    },
+    {
+      "id": "payment",
+      "status": "manual_or_hosted_only",
+      "evidence": "DobeuCloud custom payment paths are unsafe for launch; no approved provider-hosted/manual invoice path has been recorded."
+    },
+    {
+      "id": "terms-and-publication",
+      "status": "awaiting_human_approval",
+      "evidence": "Offer copy, diagnostic terms, privacy handling, refund/cancellation boundary, and publishing destination require owner review."
+    },
+    {
+      "id": "prospecting",
+      "status": "not_started",
+      "evidence": "No approved qualified-prospect list or outreach send authorization is recorded."
+    },
+    {
+      "id": "revenue-proof",
+      "status": "not_met",
+      "evidence": "$0 in evidenced collected revenue; $7,777 remains to exceed the current annual software baseline."
+    }
+  ],
+  "minimum_human_decisions": [
+    "Approve or revise the $750 diagnostic offer, terms boundary, and landing-page copy.",
+    "Choose and verify a provider-hosted/manual invoice and payment path; do not use the current custom checkout.",
+    "Record whether customer-specific staffing code may be used for an internal synthetic demo and what may be shown publicly.",
+    "Approve a prospect geography/channel and the first outreach batch before any message is sent."
+  ],
+  "next_internal_action_after_approval": "Publish the minimal diagnostic application, add its URL and payment evidence workflow to the ledger, then research and prepare the first 25 evidence-led prospects for send approval."
+}

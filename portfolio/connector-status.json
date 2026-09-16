@@ -1,0 +1,65 @@
+{
+  "$schema": "connector-evidence/v1",
+  "observed_at": "2026-09-11T19:44:00Z",
+  "handling": "Identifiers, database hosts, account details, and credentials are intentionally excluded. This file records only the minimum portfolio evidence needed for planning.",
+  "connectors": [
+    {
+      "name": "GitHub",
+      "native_status": "identity_available_repository_scope_insufficient",
+      "fallback": "Public GitHub REST metadata",
+      "evidence": "87 public repositories enumerated; private and organization-only repositories remain unverified.",
+      "next_action": "Grant repository read scope to the intended company identity, then replace the public-user fallback with a paginated authenticated account-and-organization inventory before reconciling additions."
+    },
+    {
+      "name": "Supabase",
+      "native_status": "catalog_ready_project_list_scope_insufficient",
+      "fallback": "Read-only Composio Supabase connections",
+      "evidence": "Four projects visible across two connected accounts: three active/healthy and one inactive.",
+      "projects": [
+        {
+          "name": "RouteReady",
+          "status": "ACTIVE_HEALTHY",
+          "region": "us-west-2",
+          "canonical_source": null,
+          "mapping_status": "unmapped"
+        },
+        {
+          "name": "supabase-dobe-net",
+          "status": "ACTIVE_HEALTHY",
+          "region": "us-east-1",
+          "canonical_source": null,
+          "mapping_status": "unmapped"
+        },
+        {
+          "name": "ikram-meme-and-co",
+          "status": "INACTIVE",
+          "region": "us-east-1",
+          "canonical_source": null,
+          "mapping_status": "unmapped"
+        },
+        {
+          "name": "dot-copilot",
+          "status": "ACTIVE_HEALTHY",
+          "region": "us-east-1",
+          "canonical_source": null,
+          "mapping_status": "unmapped"
+        }
+      ],
+      "next_action": "For each project, record source repository, deployment, data owner/classification, customer, backup, monthly cost, and retirement/consolidation gate. Do not inspect application data until authorization and purpose are explicit."
+    },
+    {
+      "name": "Make",
+      "native_status": "not_ready_no_setup_path",
+      "fallback": "Composio Make connection",
+      "evidence": "Two connected accounts are active, but read-only organization listing returned zero visible organizations for both. Credit data therefore remains screenshot-reported rather than API-verified.",
+      "next_action": "Repair the Make connection/account scope for the organization shown in the screenshot, then read organization usage and scenario metadata before building the credit sprint."
+    },
+    {
+      "name": "Composio",
+      "native_status": "ready",
+      "fallback": null,
+      "evidence": "Read-only connector discovery and Supabase project listing succeeded; Make organization listing executed but returned no visible organization.",
+      "next_action": "Use as the bounded remote-workbench connector plane, with explicit account selection, tool schemas, minimal returned fields, checkpoints, and approval gates for writes."
+    }
+  ]
+}

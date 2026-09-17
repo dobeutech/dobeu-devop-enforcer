@@ -1,0 +1,48 @@
+# Example "CI agent": auto-triage newly opened issues.
+# When an issue is opened, Claude reads it and applies labels + a short triage
+# comment. Demonstrates a scheduled/event-driven agent that ONLY needs issue
+# permissions (least privilege) — it cannot touch code.
+#
+# Prerequisites: Claude GitHub App installed + ANTHROPIC_API_KEY secret.
+name: Agent Issue Triage
+
+on:
+  issues:
+    types: [opened, reopened]
+
+concurrency:
+  group: triage-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write          # apply labels, comment
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Triage with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are triaging GitHub issue #${{ github.event.issue.number }}.
+            1. Read the issue title and body.
+            2. Choose appropriate labels from the repository's existing label set
+               (e.g. bug, enhancement, documentation, question, needs-repro).
+            3. Apply the labels using the `gh` CLI.
+            4. Post one short comment: a one-line summary, the area of the
+               codebase likely involved, and whether more info is needed.
+            Do not modify any code or close the issue.
+          claude_args: |
+            --max-turns 6
+            --allowedTools "Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh label list:*)"
+        env:
+          GH_TOKEN: ${{ github.token }}

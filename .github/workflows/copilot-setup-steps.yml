@@ -1,0 +1,51 @@
+# Pre-installs tools/dependencies into the Copilot coding agent's ephemeral
+# environment BEFORE it starts a task. The job MUST be named
+# `copilot-setup-steps` or GitHub will not pick it up.
+#
+# Only these keys are honored inside the job: steps, permissions, runs-on,
+# container, services, snapshot, timeout-minutes (max 59). Everything else is
+# ignored. Keep permissions minimal — these are the permissions for the SETUP
+# job, not for the agent itself.
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # --- Example: Node/TypeScript. Delete or replace for your stack. ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # --- Example: Python (uncomment / adapt) ---
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "3.12"
+      # - name: Install dependencies
+      #   run: pip install -r requirements.txt
+
+      # Pre-warm anything expensive the agent will need (build caches, codegen,
+      # downloading models/datasets, etc.) so the agent spends its time coding,
+      # not waiting on setup.

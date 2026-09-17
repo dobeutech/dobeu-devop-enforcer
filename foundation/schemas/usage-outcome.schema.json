@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/usage-outcome/v1",
+  "title": "Token and outcome event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "event_id",
+    "task_id",
+    "provider",
+    "model_or_tool",
+    "started_at",
+    "finished_at",
+    "input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "provider_credits",
+    "cost_usd",
+    "operator_minutes",
+    "artifact_ref",
+    "acceptance_status",
+    "revenue_stage"
+  ],
+  "properties": {
+    "schema": {"const": "usage-outcome/v1"},
+    "event_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "model_or_tool": {"type": "string", "minLength": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "finished_at": {"type": ["string", "null"], "format": "date-time"},
+    "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "cached_input_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "provider_credits": {"type": ["number", "null"], "minimum": 0},
+    "cost_usd": {"type": ["number", "null"], "minimum": 0},
+    "operator_minutes": {"type": "number", "minimum": 0},
+    "artifact_ref": {"type": ["string", "null"]},
+    "acceptance_status": {"enum": ["pending", "accepted", "rework", "rejected"]},
+    "revenue_stage": {
+      "enum": ["internal", "lead", "diagnostic", "implementation", "retainer", "collected"]
+    }
+  }
+}

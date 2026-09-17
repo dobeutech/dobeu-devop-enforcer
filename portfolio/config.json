@@ -1,0 +1,209 @@
+{
+  "$schema": "portfolio-config/v1",
+  "owner": "dobeutech",
+  "annual_software_cost_usd": 7776,
+  "minimum_collected_revenue_usd": 7777,
+  "operating_revenue_target_usd": 12000,
+  "score_dimensions": {
+    "business_value": {"min": 0, "max": 25},
+    "time_to_revenue": {"min": 0, "max": 25},
+    "differentiation": {"min": 0, "max": 15},
+    "execution_readiness": {"min": 0, "max": 20},
+    "strategic_leverage": {"min": 0, "max": 15},
+    "maintenance_penalty": {"min": 0, "max": 20, "subtract": true}
+  },
+  "thresholds": {
+    "invest_and_sell_now": 75,
+    "package_and_validate": 60,
+    "retain_as_enabler": 45,
+    "consolidate_or_reference": 25
+  },
+  "overrides": {
+    "unique-staffing-prof": {
+      "dimensions": {"business_value": 25, "time_to_revenue": 23, "differentiation": 13, "execution_readiness": 12, "strategic_leverage": 15, "maintenance_penalty": 9},
+      "decision": "invest_and_sell_now",
+      "portfolio_role": "primary_revenue_asset",
+      "cost_pressure": "medium",
+      "confidence": "medium",
+      "offer": "Staffing Operations Automation Sprint",
+      "why": "The staffing-specific workflow provides the clearest domain proof and a paid diagnostic can be delivered without deploying this code. Source inspection found a duplicate declaration that blocks compilation, no real test suite, incomplete operational controls, and unresolved customer/reuse rights, so the implementation must not be represented as production-ready.",
+      "next_action": "Verify ownership and customer rights, repair and test in isolation with synthetic data, and sell only the bounded paid workflow diagnostic until production gates pass."
+    },
+    "dobeucloud": {
+      "dimensions": {"business_value": 23, "time_to_revenue": 19, "differentiation": 10, "execution_readiness": 8, "strategic_leverage": 15, "maintenance_penalty": 11},
+      "decision": "package_and_validate",
+      "portfolio_role": "sales_surface_under_repair",
+      "cost_pressure": "medium",
+      "confidence": "high",
+      "offer": "Consulting storefront, checkout, client delivery, and retainer portal",
+      "why": "The repository contains useful offer, quote, invoice, payment, and dashboard foundations, but source inspection found mocked scheduling, an unimplemented contact submission, no test suite, unproven marketing claims, and payment endpoints that trust client-supplied amounts or transaction facts.",
+      "next_action": "Use the approved offer copy with a manual or provider-hosted payment link first; remove unsupported claims and repair server-side quote/payment verification before publishing the integrated funnel."
+    },
+    "dobeu-devop-enforcer": {
+      "dimensions": {"business_value": 20, "time_to_revenue": 18, "differentiation": 12, "execution_readiness": 14, "strategic_leverage": 15, "maintenance_penalty": 8},
+      "decision": "package_and_validate",
+      "portfolio_role": "secondary_service_asset",
+      "cost_pressure": "medium",
+      "confidence": "medium",
+      "offer": "Engineering Memory and Codebase Governance diagnostic",
+      "why": "The standards/orchestration engine supports a differentiated B2B assessment, but unsafe permission bypass and incomplete company coverage must be corrected before automation is sold.",
+      "next_action": "Keep report-only, remove permission bypass, prove the code-tour scorecard internally, then sell a bounded diagnostic rather than autonomous remediation."
+    },
+    "difydobeu": {
+      "dimensions": {"business_value": 20, "time_to_revenue": 18, "differentiation": 10, "execution_readiness": 14, "strategic_leverage": 12, "maintenance_penalty": 8},
+      "decision": "package_and_validate",
+      "portfolio_role": "deployment_service_option",
+      "cost_pressure": "high",
+      "confidence": "low",
+      "offer": "Private AI workspace deployment and managed operations",
+      "why": "A turnkey Dify deployment could be sold to small businesses, but hosting, security, upgrades, and support create more operating risk than a workflow sprint.",
+      "next_action": "Validate one buyer and a fixed deployment boundary before restoring infrastructure or promising managed hosting."
+    },
+    "contentminer": {
+      "dimensions": {"business_value": 18, "time_to_revenue": 18, "differentiation": 8, "execution_readiness": 12, "strategic_leverage": 11, "maintenance_penalty": 6},
+      "decision": "package_and_validate",
+      "portfolio_role": "adjacent_service_template",
+      "cost_pressure": "medium",
+      "confidence": "medium",
+      "offer": "Content workflow automation implementation",
+      "why": "It defines a recognizable n8n/Firecrawl/OpenAI/Docs/Notion/Slack workflow that can be implemented for a customer, but the market is crowded and provider usage creates recurring cost.",
+      "next_action": "Offer only after customer pull; replace outdated dependencies and prove one measurable publishing-time reduction."
+    },
+    "dobeuinfo-app": {
+      "dimensions": {"business_value": 18, "time_to_revenue": 14, "differentiation": 10, "execution_readiness": 12, "strategic_leverage": 9, "maintenance_penalty": 5},
+      "decision": "retain_as_enabler",
+      "portfolio_role": "authority_and_lead_generation",
+      "cost_pressure": "low",
+      "confidence": "low",
+      "offer": "Independent software evaluation and implementation lead generation",
+      "why": "The product-review positioning can build authority and affiliate or audit opportunities, but it needs audience, disclosure rules, and editorial proof before near-term revenue is credible.",
+      "next_action": "Consolidate with dobeuinfo, publish a small evidence-backed review set, and measure qualified leads before adding monetization."
+    },
+    "GraphQL": {
+      "dimensions": {"business_value": 13, "time_to_revenue": 10, "differentiation": 12, "execution_readiness": 11, "strategic_leverage": 14, "maintenance_penalty": 9},
+      "decision": "retain_as_enabler",
+      "portfolio_role": "engineering_memory_component",
+      "cost_pressure": "high",
+      "confidence": "medium",
+      "offer": "Conversation and engineering-memory visualization component",
+      "why": "The Neo4j/Qdrant/BERTopic/D3 system supports the engineering-memory service but is infrastructure-heavy and lacks current CI evidence.",
+      "next_action": "Benchmark the graph/vector value against the simpler Supabase memory architecture; retain only differentiated visualization or traversal capability."
+    },
+    "dobeu-v0-skills-pack": {
+      "dimensions": {"business_value": 12, "time_to_revenue": 12, "differentiation": 8, "execution_readiness": 10, "strategic_leverage": 10, "maintenance_penalty": 5},
+      "decision": "retain_as_enabler",
+      "portfolio_role": "delivery_accelerator",
+      "cost_pressure": "low",
+      "confidence": "medium",
+      "offer": "Internal design and frontend delivery skills",
+      "why": "The pack can reduce delivery time, but the repository says the full skills tree is distributed separately and therefore is not yet a self-contained sellable product.",
+      "next_action": "Reconcile provenance and packaging, retain as an internal accelerator, and measure accepted delivery-time savings before considering a paid pack."
+    },
+    "ripplesocial": {
+      "dimensions": {"business_value": 14, "time_to_revenue": 8, "differentiation": 9, "execution_readiness": 15, "strategic_leverage": 6, "maintenance_penalty": 8},
+      "decision": "retain_as_enabler",
+      "portfolio_role": "validated_code_asset_not_current_offer",
+      "cost_pressure": "medium",
+      "confidence": "medium",
+      "offer": "Positive-impact community product",
+      "why": "The application has a coherent product and tests, but consumer social revenue depends on audience/network effects and is slower than selling an existing B2B workflow outcome.",
+      "next_action": "Freeze feature work and require user-growth or sponsor evidence before further investment."
+    },
+    "jeremy-connect-hub": {
+      "dimensions": {"business_value": 10, "time_to_revenue": 8, "differentiation": 5, "execution_readiness": 12, "strategic_leverage": 8, "maintenance_penalty": 7},
+      "decision": "consolidate_or_reference",
+      "portfolio_role": "personal_or_lead_surface",
+      "cost_pressure": "medium",
+      "confidence": "low",
+      "offer": "Founder profile and lead capture",
+      "why": "The repository is a generic Lovable project with Supabase; any useful profile/lead content belongs in the primary Dobeu sales surface.",
+      "next_action": "Map live domains and leads, migrate unique content to dobeucloud, export Lovable data, then archive if no independent audience exists."
+    },
+    "promptagent": {
+      "dimensions": {"business_value": 10, "time_to_revenue": 7, "differentiation": 7, "execution_readiness": 9, "strategic_leverage": 11, "maintenance_penalty": 8},
+      "decision": "consolidate_or_reference",
+      "portfolio_role": "memory_platform_component",
+      "cost_pressure": "low",
+      "confidence": "low",
+      "offer": "Prompt registry/MCP component",
+      "why": "A prompt API is useful internally, but the README retains template placeholders and there is no evidence of customers or differentiated hosted value.",
+      "next_action": "Move the versioned prompt contract into the engineering-memory platform and archive the standalone service unless a consumer is proven."
+    },
+    "dobeu-tech-solutions": {
+      "dimensions": {"business_value": 8, "time_to_revenue": 6, "differentiation": 3, "execution_readiness": 8, "strategic_leverage": 6, "maintenance_penalty": 8},
+      "decision": "consolidate_or_reference",
+      "portfolio_role": "duplicate_company_site",
+      "cost_pressure": "low",
+      "confidence": "high",
+      "offer": null,
+      "why": "The README identifies a generic Spark template rather than a distinct customer product; maintaining it competes with dobeucloud as the company surface.",
+      "next_action": "Inventory domain/traffic and migrate any unique content to dobeucloud before archival."
+    },
+    "dobeuinfo": {
+      "dimensions": {"business_value": 8, "time_to_revenue": 6, "differentiation": 4, "execution_readiness": 5, "strategic_leverage": 5, "maintenance_penalty": 6},
+      "decision": "consolidate_or_reference",
+      "portfolio_role": "duplicate_review_site",
+      "cost_pressure": "low",
+      "confidence": "medium",
+      "offer": null,
+      "why": "It duplicates the dobeuinfo-app concept with much less implementation evidence.",
+      "next_action": "Keep dobeuinfo-app as the canonical candidate, migrate unique domain/content evidence, and archive this duplicate."
+    },
+    "claudeconfig": {
+      "dimensions": {"business_value": 2, "time_to_revenue": 1, "differentiation": 2, "execution_readiness": 7, "strategic_leverage": 10, "maintenance_penalty": 4},
+      "decision": "retain_internal_only",
+      "portfolio_role": "agent_configuration_reference",
+      "cost_pressure": "low",
+      "confidence": "low",
+      "offer": null,
+      "why": "Configuration can reduce internal delivery cost but is not a customer product and lacks current documentation evidence.",
+      "next_action": "Extract reviewed portable settings into the canonical engineering platform; archive the standalone repository after consumers migrate."
+    },
+    "6agents": {
+      "dimensions": {"business_value": 12, "time_to_revenue": 7, "differentiation": 5, "execution_readiness": 10, "strategic_leverage": 8, "maintenance_penalty": 18},
+      "decision": "remove_from_active_portfolio",
+      "portfolio_role": "imported_or_unclear_provenance",
+      "cost_pressure": "medium",
+      "confidence": "high",
+      "offer": null,
+      "why": "The README says the repository is hosted under another owner, so provenance and ownership are unresolved despite a plausible design-system product.",
+      "next_action": "Verify license, source relationship, and unique owned commits; transfer to a reference area or archive if it is not a Dobeu-owned product."
+    },
+    "transformers-qdrant-integration": {
+      "dimensions": {"business_value": 7, "time_to_revenue": 3, "differentiation": 4, "execution_readiness": 3, "strategic_leverage": 8, "maintenance_penalty": 12},
+      "decision": "remove_from_active_portfolio",
+      "portfolio_role": "experimental_ml_reference",
+      "cost_pressure": "high",
+      "confidence": "high",
+      "offer": null,
+      "why": "The repository exposes only a small set of loose scripts with no README, manifest, tests, CI, data contract, or demonstrated customer outcome.",
+      "next_action": "Extract any benchmarked reusable code into the memory platform, then archive after consumer and artifact checks."
+    },
+    "security-agent": {
+      "dimensions": {"business_value": 9, "time_to_revenue": 4, "differentiation": 0, "execution_readiness": 8, "strategic_leverage": 6, "maintenance_penalty": 20},
+      "decision": "remove_from_active_portfolio",
+      "portfolio_role": "third_party_import",
+      "cost_pressure": "high",
+      "confidence": "high",
+      "offer": null,
+      "why": "The README and package metadata identify the upstream Shannon pentesting product; selling or operating the imported code creates provenance, security, and maintenance risk without owned differentiation.",
+      "next_action": "Record upstream/license/consumer evidence, retain only a pinned reference if needed, and archive or remove it from the active company portfolio."
+    },
+    "conversation-network": {
+      "decision": "consolidate_or_reference",
+      "portfolio_role": "placeholder_superseded_by_graphql",
+      "cost_pressure": "low",
+      "confidence": "high",
+      "why": "The one-file placeholder overlaps the implemented GraphQL conversation-network repository.",
+      "next_action": "Confirm no consumer, preserve any issue/history reference, and archive."
+    },
+    "Uniquestaffing": {
+      "decision": "archive_candidate",
+      "portfolio_role": "empty_duplicate",
+      "cost_pressure": "low",
+      "confidence": "high",
+      "why": "The empty repository duplicates unique-staffing-prof.",
+      "next_action": "Confirm it is not a deployment or redirect dependency, then archive."
+    }
+  }
+}

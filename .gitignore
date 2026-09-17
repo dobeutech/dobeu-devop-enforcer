@@ -158,6 +158,7 @@ Thumbs.db
 
 # Project-specific
 *.local.yaml
+/core
 *.local.yml
 scan-results.json
 compliance-report.*

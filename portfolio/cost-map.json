@@ -1,0 +1,217 @@
+{
+  "$schema": "cost-portfolio/v1",
+  "currency": "USD",
+  "basis": "User-reported monthly costs; vendor invoices, renewal dates, taxes, annual commitments, API usage, and plan entitlements are not yet verified.",
+  "monthly_software_cost_usd": 648,
+  "annual_software_cost_usd": 7776,
+  "allocation_policy": {
+    "shared_cost_rule": "Do not divide shared subscription costs across repositories without usage or deployment evidence.",
+    "retention_rule": "Retain a subscription only when it protects a live production dependency or produces an accepted business or delivery outcome at a competitive cost.",
+    "credit_rule": "Unused credits are not value. Route work only when the work has a durable output, owner, acceptance test, and cost ceiling.",
+    "consumer_plan_rule": "Treat consumer subscriptions as interactive seats, not gateway capacity, unless the provider explicitly permits API or automated use under the plan. Never automate by scraping sessions or sharing credentials."
+  },
+  "subscriptions": [
+    {
+      "id": "claude-max",
+      "name": "Claude Max",
+      "monthly_cost_usd": 200,
+      "annual_cost_usd": 2400,
+      "category": "interactive_ai",
+      "decision_track": "competitive_bakeoff",
+      "candidate_workstreams": ["deep_code_review", "architecture", "long_context_synthesis"],
+      "overlaps_with": ["openai-pro", "supagrok", "google-ai", "github-copilot-pro", "ona-core"],
+      "renewal_evidence_required": "Accepted high-complexity outputs and time saved that the lower-cost candidates cannot match during a 14-day comparison.",
+      "recommended_action": "Measure against one primary alternative; downgrade or pause if it does not win a distinct, recurring workstream."
+    },
+    {
+      "id": "supagrok",
+      "name": "Supagrok",
+      "monthly_cost_usd": 30,
+      "annual_cost_usd": 360,
+      "category": "interactive_ai",
+      "decision_track": "competitive_bakeoff",
+      "candidate_workstreams": ["current_web_research", "second_opinion"],
+      "overlaps_with": ["claude-max", "openai-pro", "google-ai"],
+      "renewal_evidence_required": "A recurring research task with accepted outputs, sources, and a lower effective cost than alternatives.",
+      "recommended_action": "Pause at the next reversible renewal unless it wins a named research workload."
+    },
+    {
+      "id": "openai-pro",
+      "name": "OpenAI Pro",
+      "monthly_cost_usd": 100,
+      "annual_cost_usd": 1200,
+      "category": "interactive_ai",
+      "decision_track": "competitive_bakeoff",
+      "candidate_workstreams": ["coding", "analysis", "agent_orchestration", "multimodal_work"],
+      "overlaps_with": ["claude-max", "supagrok", "google-ai", "github-copilot-pro", "ona-core"],
+      "renewal_evidence_required": "Wins the primary interactive-AI seat using accepted outcomes per dollar, not chat volume.",
+      "recommended_action": "Use as the $100 reference option in the 14-day AI bakeoff; retain only if it wins or owns a non-overlapping task."
+    },
+    {
+      "id": "v0",
+      "name": "v0.app",
+      "monthly_cost_usd": 30,
+      "annual_cost_usd": 360,
+      "category": "design_and_app_builder",
+      "decision_track": "consolidate_toolchain",
+      "candidate_workstreams": ["dobeucloud_offer_page", "customer_ui_prototypes"],
+      "overlaps_with": ["figma-full", "lovable-business-3", "bolt-new", "replit"],
+      "renewal_evidence_required": "Accepted, shipped UI work tied to the primary offer and faster than the selected alternative.",
+      "recommended_action": "Export owned artifacts, run one controlled offer-page task, and retain at most one primary UI generator."
+    },
+    {
+      "id": "figma-full",
+      "name": "Figma full license",
+      "monthly_cost_usd": 20,
+      "annual_cost_usd": 240,
+      "category": "design_and_app_builder",
+      "decision_track": "consolidate_toolchain",
+      "candidate_workstreams": ["design_source_of_truth", "customer_review", "handoff"],
+      "overlaps_with": ["v0", "lovable-business-3", "bolt-new"],
+      "renewal_evidence_required": "An active customer or product workflow needs editable design files, collaboration, or handoff unavailable on a lower plan.",
+      "recommended_action": "Keep only if it is the canonical design record; otherwise export assets and downgrade after checking collaborator access."
+    },
+    {
+      "id": "supabase-pro",
+      "name": "Supabase Pro",
+      "monthly_cost_usd": 30,
+      "annual_cost_usd": 360,
+      "category": "production_infrastructure",
+      "decision_track": "map_before_change",
+      "candidate_workstreams": ["unique-staffing-prof", "dobeucloud", "engineering_memory"],
+      "overlaps_with": ["routeready-supabase-micro"],
+      "renewal_evidence_required": "Named projects, owners, backups, security posture, traffic, and a live revenue or internal-foundation dependency.",
+      "recommended_action": "Inventory projects and map each database to source, deployment, data owner, and recovery requirements before consolidation."
+    },
+    {
+      "id": "routeready-supabase-micro",
+      "name": "RouteReady Supabase micro database",
+      "monthly_cost_usd": 15,
+      "annual_cost_usd": 180,
+      "category": "production_infrastructure",
+      "decision_track": "map_before_change",
+      "candidate_workstreams": ["routeready"],
+      "overlaps_with": ["supabase-pro"],
+      "renewal_evidence_required": "Matching source repository, live consumer, data owner, backup, and an explicit reason it cannot share the governed Supabase organization.",
+      "recommended_action": "Treat as a protected unknown until source and data ownership are established; then consolidate, retain, or retire deliberately."
+    },
+    {
+      "id": "github-org-team",
+      "name": "GitHub organization team",
+      "monthly_cost_usd": 4,
+      "annual_cost_usd": 48,
+      "category": "source_control",
+      "decision_track": "protect_foundation",
+      "candidate_workstreams": ["all_repositories", "ci", "security", "governance"],
+      "overlaps_with": [],
+      "renewal_evidence_required": "Organization ownership, access control, and repository governance remain in use.",
+      "recommended_action": "Retain while it protects company source and access control; repair connector read scope for complete portfolio evidence."
+    },
+    {
+      "id": "vercel-pro",
+      "name": "Vercel Pro - Dobeu Tech Solutions",
+      "monthly_cost_usd": 20,
+      "annual_cost_usd": 240,
+      "category": "production_infrastructure",
+      "decision_track": "map_before_change",
+      "candidate_workstreams": ["dobeucloud", "unique-staffing-prof", "public_demos"],
+      "overlaps_with": ["replit"],
+      "renewal_evidence_required": "Every production project maps to a canonical repository, domain, owner, analytics, and revenue or approved demonstration purpose.",
+      "recommended_action": "Consolidate deployments around dobeucloud and the first offer; remove stale previews only after domain and rollback checks."
+    },
+    {
+      "id": "github-copilot-pro",
+      "name": "GitHub Copilot Pro",
+      "monthly_cost_usd": 10,
+      "annual_cost_usd": 120,
+      "category": "interactive_ai",
+      "decision_track": "competitive_bakeoff",
+      "candidate_workstreams": ["editor_completion"],
+      "overlaps_with": ["claude-max", "openai-pro", "ona-core"],
+      "renewal_evidence_required": "Measured editor-specific throughput that remains useful alongside the selected agent environment.",
+      "recommended_action": "Pause if Ona or the primary AI seat covers the same coding loop without a measurable loss."
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI",
+      "monthly_cost_usd": 29,
+      "annual_cost_usd": 348,
+      "category": "interactive_ai",
+      "decision_track": "competitive_bakeoff",
+      "candidate_workstreams": ["google_workspace", "multimodal_work", "model_comparison"],
+      "overlaps_with": ["claude-max", "openai-pro", "supagrok"],
+      "renewal_evidence_required": "A Google-specific workflow or a bakeoff win based on accepted outcomes per dollar.",
+      "recommended_action": "Pause unless a named Google-integrated workload proves unique value."
+    },
+    {
+      "id": "lovable-business-3",
+      "name": "Lovable Business 3",
+      "monthly_cost_usd": 100,
+      "annual_cost_usd": 1200,
+      "category": "design_and_app_builder",
+      "decision_track": "consolidate_toolchain",
+      "candidate_workstreams": ["existing_lovable_repo_maintenance", "customer_ui_prototypes"],
+      "overlaps_with": ["v0", "figma-full", "bolt-new", "replit"],
+      "renewal_evidence_required": "A currently deployed, owned application requires the plan or it wins the controlled UI build test by a material margin.",
+      "recommended_action": "Highest-priority builder-plan audit: export source/assets and verify deployed dependencies before downgrading or pausing."
+    },
+    {
+      "id": "bolt-new",
+      "name": "Bolt.new",
+      "monthly_cost_usd": 20,
+      "annual_cost_usd": 240,
+      "category": "design_and_app_builder",
+      "decision_track": "consolidate_toolchain",
+      "candidate_workstreams": ["rapid_prototypes"],
+      "overlaps_with": ["v0", "lovable-business-3", "replit"],
+      "renewal_evidence_required": "Wins a named prototype workload and generates portable source with acceptable quality.",
+      "recommended_action": "Pause unless it wins the same controlled task against the selected builder."
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "monthly_cost_usd": 20,
+      "annual_cost_usd": 240,
+      "category": "design_and_app_builder",
+      "decision_track": "consolidate_toolchain",
+      "candidate_workstreams": ["hosted_prototypes", "collaborative_sandboxes"],
+      "overlaps_with": ["v0", "lovable-business-3", "bolt-new", "vercel-pro", "ona-core"],
+      "renewal_evidence_required": "A live hosted workload or collaboration need that is not better served by Ona plus the canonical deployment platform.",
+      "recommended_action": "Export projects and pause if no mapped live workload depends on it."
+    },
+    {
+      "id": "ona-core",
+      "name": "Ona Core",
+      "monthly_cost_usd": 20,
+      "annual_cost_usd": 240,
+      "category": "engineering_environment",
+      "decision_track": "protect_foundation",
+      "candidate_workstreams": ["multi_repository_governance", "reproducible_delivery", "agent_orchestration", "engineering_memory"],
+      "overlaps_with": ["replit", "github-copilot-pro", "interactive_ai_seats"],
+      "renewal_evidence_required": "The internal foundation and revenue delivery run reproducibly here with accepted artifacts and lower coordination cost.",
+      "recommended_action": "Retain through the internal-foundation release and measure completed delivery milestones per month."
+    }
+  ],
+  "prepaid_capacity": [
+    {
+      "id": "make-credits",
+      "name": "Make.com operations/credits",
+      "cash_cost_usd": null,
+      "allowance": 240000,
+      "used_observed": 106996.35,
+      "remaining_observed": 133003.65,
+      "remaining_percent": 55.42,
+      "reset_window_days_observed": 29,
+      "evidence": "User-supplied screenshot; capture time, billing price, operation accounting, and exact reset date are unverified.",
+      "recommended_action": "Use the credit sprint for durable portfolio telemetry, approved sales operations, memory ingestion, and failure-tested delivery workflows; do not create activity solely to exhaust credits."
+    }
+  ],
+  "scenario_bookends": {
+    "protected_technical_foundation_monthly_usd": 74,
+    "protected_technical_foundation_includes": ["ona-core", "github-org-team", "vercel-pro", "supabase-pro"],
+    "foundation_plus_openai_reference_monthly_usd": 174,
+    "foundation_plus_claude_reference_monthly_usd": 274,
+    "routeready_if_retained_additional_monthly_usd": 15,
+    "note": "These are comparison bookends, not cancellation instructions. Live dependencies, commitments, exports, access, and renewals must be checked first."
+  }
+}

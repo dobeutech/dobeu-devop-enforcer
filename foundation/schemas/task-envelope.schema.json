@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/task-envelope/v1",
+  "title": "Bounded task envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "task_id",
+    "objective",
+    "scope_refs",
+    "data_class",
+    "allowed_tools",
+    "approval_class",
+    "external_writes_allowed",
+    "status",
+    "budget",
+    "success_criteria",
+    "stop_conditions"
+  ],
+  "properties": {
+    "schema": {"const": "task-envelope/v1"},
+    "task_id": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "scope_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "data_class": {"enum": ["public", "internal", "confidential", "restricted"]},
+    "allowed_tools": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "approval_class": {
+      "enum": ["internal_read_only", "external_read", "external_write", "production", "commercial"]
+    },
+    "external_writes_allowed": {"type": "boolean"},
+    "status": {"enum": ["proposed", "approved", "running", "review", "complete", "blocked"]},
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_workers", "max_tool_calls", "max_elapsed_minutes", "max_cost_usd"],
+      "properties": {
+        "max_workers": {"type": "integer", "minimum": 1, "maximum": 3},
+        "max_tool_calls": {"type": "integer", "minimum": 0},
+        "max_elapsed_minutes": {"type": "integer", "minimum": 1},
+        "max_cost_usd": {"type": "number", "minimum": 0}
+      }
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    }
+  }
+}

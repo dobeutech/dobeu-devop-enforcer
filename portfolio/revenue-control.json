@@ -1,0 +1,30 @@
+{
+  "schema": "revenue-control/v1",
+  "generated_at": "2026-09-12T07:26:31Z",
+  "period": {
+    "start": "2026-09-11",
+    "end": "2027-09-10"
+  },
+  "cost_scope": "User-reported software subscriptions in cost-map.json. Labor, taxes, payment fees, and unreported operating costs are not included until evidence is added.",
+  "baseline_software_cost_usd": 7776,
+  "minimum_collected_revenue_goal_usd": 7777,
+  "operating_collected_revenue_goal_usd": 12000,
+  "collected_revenue_usd": 0,
+  "contracted_not_collected_usd": 0,
+  "nominal_pipeline_usd": 0,
+  "gap_to_exceed_cost_usd": 7777,
+  "gap_to_operating_goal_usd": 12000,
+  "revenue_exceeds_baseline_software_cost": false,
+  "operating_goal_met": false,
+  "evidence": {
+    "opportunity_count": 0,
+    "evidenced_settled_payment_count": 0,
+    "settled_payment_records_missing_evidence": 0,
+    "settled_payment_records_affiliated_or_unknown": 0,
+    "duplicate_opportunity_ids": [],
+    "duplicate_payment_ids": [],
+    "stage_counts": []
+  },
+  "next_revenue_action": "Obtain approval to publish the diagnostic application and collect the first evidence-backed $750 diagnostic payment.",
+  "accounting_rule": "Only net settled payments from unaffiliated customers inside the goal period with a collection timestamp and durable evidence reference count as collected revenue. Pipeline and contracts are reported separately."
+}

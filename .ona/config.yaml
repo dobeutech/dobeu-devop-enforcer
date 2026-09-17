@@ -1,0 +1,31 @@
+tasks:
+  shell-lint:
+    name: Lint shell workflows
+    description: Check the local control-plane and portfolio shell entry points.
+    command: shellcheck foundation/*.sh portfolio/*.sh
+
+  foundation-validate:
+    name: Validate internal foundation
+    description: Validate schemas, invariants, fixtures, baseline hashes, and
+      portfolio evidence.
+    command: ./foundation/validate.sh
+
+  foundation-check:
+    name: Check internal foundation
+    description: Run all validation and prove the checked-in readiness report is
+      deterministic.
+    command: ./foundation/report.sh --check
+    dependsOn:
+      - shell-lint
+      - foundation-validate
+    triggeredBy:
+      - manual
+      - prebuild
+      - postDevcontainerStart
+    prebuildRequiresSuccess: true
+  hello:
+    name: Hello World
+    command: |
+      echo "Hello, World!"
+    triggeredBy:
+      - manual

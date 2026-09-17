@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/memory-candidate/v1",
+  "title": "Governed memory candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "memory_id",
+    "status",
+    "indexed",
+    "claim",
+    "source_uri",
+    "source_revision",
+    "source_locator",
+    "artifact_sha256",
+    "data_class",
+    "acl_scope",
+    "confidence",
+    "reviewed_by",
+    "contains_untrusted_instruction",
+    "execution_authorized",
+    "expires_at",
+    "supersedes"
+  ],
+  "properties": {
+    "schema": {"const": "memory-candidate/v1"},
+    "memory_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["candidate", "accepted", "rejected", "duplicate", "expired"]},
+    "indexed": {"type": "boolean"},
+    "claim": {"type": "string", "minLength": 1},
+    "source_uri": {"type": "string", "minLength": 1},
+    "source_revision": {"type": "string", "minLength": 1},
+    "source_locator": {"type": "string", "minLength": 1},
+    "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "data_class": {"enum": ["public", "internal", "confidential", "restricted"]},
+    "acl_scope": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "reviewed_by": {"type": ["string", "null"]},
+    "contains_untrusted_instruction": {"type": "boolean"},
+    "execution_authorized": {"type": "boolean"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "supersedes": {"type": ["string", "null"]}
+  }
+}

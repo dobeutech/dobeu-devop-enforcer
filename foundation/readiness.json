@@ -1,0 +1,189 @@
+{
+  "schema": "readiness-report/v1",
+  "generated_from_snapshot": "dobeu-foundation-2026-09-16-reviewed-baseline",
+  "generated_at": "2026-09-16T10:44:36Z",
+  "status": "foundation_slice_ready_for_review",
+  "boundary": {
+    "external_writes_allowed": false,
+    "authorized_task_ids": [
+      "foundation-first-slice"
+    ],
+    "explicitly_excluded": [
+      "connector reauthentication or scope expansion",
+      "production or customer-data writes",
+      "deployments and scenario runs",
+      "publication, contact enrichment, and outreach",
+      "billing changes",
+      "repository archival, transfer, or deletion"
+    ]
+  },
+  "coverage": {
+    "public_repositories": 87,
+    "company_repository_coverage_complete": false,
+    "source_status_counts": {
+      "complete": 1,
+      "conflict": 1,
+      "partial": 3
+    },
+    "connection_status_counts": {
+      "conflict": 1,
+      "partial": 2,
+      "ready": 1
+    },
+    "supabase_projects_observed": 4,
+    "supabase_projects_mapped": 0,
+    "open_conflicts": 1,
+    "baseline_artifacts": 7
+  },
+  "controls": {
+    "schemas": 11,
+    "deterministic_validator": "foundation/validate.jq",
+    "edge_fixture": "foundation/fixtures/edge-cases.json",
+    "accepted_memories_indexed": 0,
+    "nonaccepted_memories_indexed": 0,
+    "current_write_approval_count": 0
+  },
+  "financial": {
+    "monthly_software_cost_usd": 648,
+    "annual_software_cost_usd": 7776,
+    "minimum_collected_revenue_goal_usd": 7777,
+    "operating_collected_revenue_goal_usd": 12000,
+    "collected_revenue_usd": 0,
+    "fixture_evidenced_revenue_usd": 0,
+    "external_launch_status": "internal_pack_complete_external_launch_awaiting_approval"
+  },
+  "blockers": [
+    {
+      "type": "source",
+      "id": "github-public-portfolio",
+      "status": "partial",
+      "action": "Private and organization-only repositories are not visible with the current GitHub MCP scope.",
+      "evidence_ref": "portfolio/repositories.json"
+    },
+    {
+      "type": "source",
+      "id": "supabase-project-posture",
+      "status": "partial",
+      "action": "Native project enumeration and repository, deployment, owner, backup, and data-class mappings are incomplete.",
+      "evidence_ref": "portfolio/connector-status.json"
+    },
+    {
+      "type": "source",
+      "id": "make-credit-and-connection-observations",
+      "status": "conflict",
+      "action": "The screenshot and connector snapshots do not agree on organization visibility; scenario history and rollover terms remain unknown.",
+      "evidence_ref": "portfolio/cost-map.json#prepaid_capacity"
+    },
+    {
+      "type": "source",
+      "id": "subscription-cost-baseline",
+      "status": "partial",
+      "action": "Invoices, renewal dates, commitments, account owners, and measured utilization are not yet reconciled.",
+      "evidence_ref": "portfolio/cost-map.json"
+    },
+    {
+      "type": "project_mapping",
+      "id": "supabase-routeready",
+      "status": "unmapped",
+      "action": "Assign canonical repository, deployment, data owner/classification, backup evidence, and cost.",
+      "evidence_ref": "portfolio/connector-status.json"
+    },
+    {
+      "type": "project_mapping",
+      "id": "supabase-dobe-net",
+      "status": "unmapped",
+      "action": "Assign canonical repository, deployment, data owner/classification, backup evidence, and cost.",
+      "evidence_ref": "portfolio/connector-status.json"
+    },
+    {
+      "type": "project_mapping",
+      "id": "supabase-ikram-meme-and-co",
+      "status": "unmapped",
+      "action": "Assign canonical repository, deployment, data owner/classification, backup evidence, and cost.",
+      "evidence_ref": "portfolio/connector-status.json"
+    },
+    {
+      "type": "project_mapping",
+      "id": "supabase-dot-copilot",
+      "status": "unmapped",
+      "action": "Assign canonical repository, deployment, data owner/classification, backup evidence, and cost.",
+      "evidence_ref": "portfolio/connector-status.json"
+    },
+    {
+      "type": "conflict",
+      "id": "make-organization-visibility",
+      "status": "open",
+      "action": "Run a new read-only account-scoped inventory and reconcile it to the billing screenshot before building or scheduling a scenario.",
+      "evidence_ref": "portfolio/connector-status.json"
+    }
+  ],
+  "access_requests": [
+    {
+      "approval_id": "G1",
+      "action": "Expand or reauthenticate GitHub, Supabase, Make, Sentry, or other connector access.",
+      "requested_from": "workspace-owner",
+      "evidence_refs": [
+        "spec.md#31.7"
+      ]
+    }
+  ],
+  "human_approvals": [
+    {
+      "approval_id": "G1",
+      "approval_class": "access",
+      "action": "Expand or reauthenticate GitHub, Supabase, Make, Sentry, or other connector access.",
+      "status": "not_requested",
+      "requested_from": "workspace-owner"
+    },
+    {
+      "approval_id": "G2",
+      "approval_class": "internal_pilot",
+      "action": "Provision the internal assistant database branch, retention policy, identities, and gateway keys.",
+      "status": "not_requested",
+      "requested_from": "security-data-owner"
+    },
+    {
+      "approval_id": "G3",
+      "approval_class": "automation_write",
+      "action": "Enable any issue, comment, pull request, scenario, database, or deployment write.",
+      "status": "not_requested",
+      "requested_from": "system-owner"
+    },
+    {
+      "approval_id": "G4",
+      "approval_class": "commercial_launch",
+      "action": "Publish the offer, enable payment collection, enrich contacts, or send outreach.",
+      "status": "not_requested",
+      "requested_from": "commercial-owner"
+    },
+    {
+      "approval_id": "G5",
+      "approval_class": "billing",
+      "action": "Pause, downgrade, cancel, purchase, or replace a subscription.",
+      "status": "not_requested",
+      "requested_from": "billing-owner"
+    },
+    {
+      "approval_id": "G6",
+      "approval_class": "repository_lifecycle",
+      "action": "Consolidate, archive, transfer, or delete a repository.",
+      "status": "not_requested",
+      "requested_from": "repository-owner"
+    },
+    {
+      "approval_id": "G7",
+      "approval_class": "productization",
+      "action": "Offer a hosted external engineering-memory or governance product.",
+      "status": "not_requested",
+      "requested_from": "business-security-owner"
+    }
+  ],
+  "next_slice": [
+    "Review this foundation diff and keep G1 through G7 closed until their evidence packets are ready.",
+    "Request least-privilege GitHub repository/settings read scope and reconcile public, private, organization, archived, and transferred totals.",
+    "Collect a fresh account-scoped Make organization, team, scenario, execution-history, credit, reset, and rollover snapshot to resolve the open conflict.",
+    "Map all four Supabase projects to source, deployment, owner, data class, backup, and cost without reading application rows.",
+    "Persist and freshness-check the 25 organization-level staffing prospects with outreach_authorized=false.",
+    "Prepare G2 evidence before provisioning a Supabase branch or gateway credentials for the engineering-memory pilot."
+  ]
+}

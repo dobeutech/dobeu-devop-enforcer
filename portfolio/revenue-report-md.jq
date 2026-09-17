@@ -1,0 +1,38 @@
+def money: "$" + (tostring);
+
+[
+  "# Revenue Control Dashboard",
+  "",
+  "Generated: \(.generated_at)",
+  "",
+  "> Scope: \(.cost_scope)",
+  "",
+  "## One-year goal evidence",
+  "",
+  "- Net evidenced collected revenue: **\(.collected_revenue_usd | money)**",
+  "- Baseline annual software cost: **\(.baseline_software_cost_usd | money)**",
+  "- Minimum collected revenue required to exceed it: **\(.minimum_collected_revenue_goal_usd | money)**",
+  "- Remaining gap: **\(.gap_to_exceed_cost_usd | money)**",
+  "- Operating target: **\(.operating_collected_revenue_goal_usd | money)**",
+  "- Revenue exceeds baseline software cost: **\(.revenue_exceeds_baseline_software_cost)**",
+  "",
+  "## Non-revenue indicators",
+  "",
+  "- Contracted but not collected: \(.contracted_not_collected_usd | money)",
+  "- Nominal pipeline: \(.nominal_pipeline_usd | money)",
+  "- Opportunities: \(.evidence.opportunity_count)",
+  "- Evidenced settled payments: \(.evidence.evidenced_settled_payment_count)",
+  "- Settled records missing evidence: \(.evidence.settled_payment_records_missing_evidence)",
+  "- Settled records affiliated or independence unknown: \(.evidence.settled_payment_records_affiliated_or_unknown)",
+  "",
+  "Pipeline and contracts do not count toward the goal.",
+  "",
+  "## Next revenue action",
+  "",
+  .next_revenue_action,
+  "",
+  "## Accounting rule",
+  "",
+  .accounting_rule
+]
+| .[]

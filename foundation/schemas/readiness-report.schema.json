@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/readiness-report/v1",
+  "title": "Internal foundation readiness report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generated_from_snapshot",
+    "generated_at",
+    "status",
+    "boundary",
+    "coverage",
+    "controls",
+    "financial",
+    "blockers",
+    "access_requests",
+    "human_approvals",
+    "next_slice"
+  ],
+  "properties": {
+    "schema": {"const": "readiness-report/v1"},
+    "generated_from_snapshot": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "status": {"const": "foundation_slice_ready_for_review"},
+    "boundary": {"type": "object"},
+    "coverage": {"type": "object"},
+    "controls": {"type": "object"},
+    "financial": {"type": "object"},
+    "blockers": {"type": "array", "items": {"type": "object"}},
+    "access_requests": {"type": "array", "items": {"type": "object"}},
+    "human_approvals": {"type": "array", "items": {"type": "object"}},
+    "next_slice": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  }
+}

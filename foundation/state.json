@@ -1,0 +1,411 @@
+{
+  "schema": "internal-foundation/v1",
+  "snapshot_id": "dobeu-foundation-2026-09-16-reviewed-baseline",
+  "observed_at": "2026-09-16T10:44:36Z",
+  "external_writes_allowed": false,
+  "baseline_artifacts": [
+    {
+      "path": "portfolio/repositories.json",
+      "sha256": "3752e3f1aa6ac1cf9f137862e8ab901dc1ceaea9e2a53fbe6b09b10a7068e494"
+    },
+    {
+      "path": "portfolio/cost-map.json",
+      "sha256": "f5b5605bca7e7965dd7cc8f5ae07e980f134b948922268e6f65bdd45a8b9f9c3"
+    },
+    {
+      "path": "portfolio/connector-status.json",
+      "sha256": "4444af63e8eaa05d9763bd7168aceb0a8f5a1df995a9071d8be4c11f35732461"
+    },
+    {
+      "path": "portfolio/launch-readiness.json",
+      "sha256": "d4f02805223a7c2385b2334bf86fd70924d486a70d37a2e8284cf2d07fb2551a"
+    },
+    {
+      "path": "portfolio/revenue-ledger.json",
+      "sha256": "be3e0bec40b9dbebd7663a80ab86dc76ec9c11d1747907a77967e701631b144f"
+    },
+    {
+      "path": "portfolio/offer/readiness-audit.md",
+      "sha256": "4fc5088373976bbbb720df8ecbe9c024b9d045746fc3ee8fc16469e12a89c2c0"
+    },
+    {
+      "path": "spec.md",
+      "sha256": "14ac32ae07593609d6f7d247f47bb1b1ed8808cba6bd8cade17ed135f49c330f"
+    }
+  ],
+  "sources": [
+    {
+      "schema": "source-evidence/v1",
+      "source_id": "github-public-portfolio",
+      "source_system": "github",
+      "observed_at": "2026-09-11T19:51:27Z",
+      "status": "partial",
+      "authoritative": false,
+      "evidence_ref": "portfolio/repositories.json",
+      "artifact_sha256": "3752e3f1aa6ac1cf9f137862e8ab901dc1ceaea9e2a53fbe6b09b10a7068e494",
+      "source_revision": null,
+      "data_class": "public",
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "coverage": {
+        "expected_records": null,
+        "processed_records": 87,
+        "complete": false
+      },
+      "gap": "Private and organization-only repositories are not visible with the current GitHub MCP scope."
+    },
+    {
+      "schema": "source-evidence/v1",
+      "source_id": "supabase-project-posture",
+      "source_system": "supabase",
+      "observed_at": "2026-09-11T19:44:00Z",
+      "status": "partial",
+      "authoritative": false,
+      "evidence_ref": "portfolio/connector-status.json",
+      "artifact_sha256": "4444af63e8eaa05d9763bd7168aceb0a8f5a1df995a9071d8be4c11f35732461",
+      "source_revision": "2026-09-11T19:44:00Z",
+      "data_class": "internal",
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "coverage": {
+        "expected_records": null,
+        "processed_records": 4,
+        "complete": false
+      },
+      "gap": "Native project enumeration and repository, deployment, owner, backup, and data-class mappings are incomplete."
+    },
+    {
+      "schema": "source-evidence/v1",
+      "source_id": "make-credit-and-connection-observations",
+      "source_system": "make",
+      "observed_at": "2026-09-11T19:44:00Z",
+      "status": "conflict",
+      "authoritative": false,
+      "evidence_ref": "portfolio/cost-map.json#prepaid_capacity",
+      "artifact_sha256": "f5b5605bca7e7965dd7cc8f5ae07e980f134b948922268e6f65bdd45a8b9f9c3",
+      "source_revision": "user-screenshot-2026-09-11",
+      "data_class": "internal",
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "coverage": {
+        "expected_records": null,
+        "processed_records": 2,
+        "complete": false
+      },
+      "gap": "The screenshot and connector snapshots do not agree on organization visibility; scenario history and rollover terms remain unknown."
+    },
+    {
+      "schema": "source-evidence/v1",
+      "source_id": "subscription-cost-baseline",
+      "source_system": "user-reported-billing",
+      "observed_at": "2026-09-11T19:51:27Z",
+      "status": "partial",
+      "authoritative": false,
+      "evidence_ref": "portfolio/cost-map.json",
+      "artifact_sha256": "f5b5605bca7e7965dd7cc8f5ae07e980f134b948922268e6f65bdd45a8b9f9c3",
+      "source_revision": "2026-09-11-user-reported",
+      "data_class": "internal",
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "coverage": {
+        "expected_records": 15,
+        "processed_records": 15,
+        "complete": false
+      },
+      "gap": "Invoices, renewal dates, commitments, account owners, and measured utilization are not yet reconciled."
+    },
+    {
+      "schema": "source-evidence/v1",
+      "source_id": "internal-launch-readiness",
+      "source_system": "workspace",
+      "observed_at": "2026-09-11T19:51:27Z",
+      "status": "complete",
+      "authoritative": true,
+      "evidence_ref": "portfolio/launch-readiness.json",
+      "artifact_sha256": "d4f02805223a7c2385b2334bf86fd70924d486a70d37a2e8284cf2d07fb2551a",
+      "source_revision": "dobeu-foundation-2026-09-11-public-baseline",
+      "data_class": "internal",
+      "allowed_actions": ["read", "validate", "report"],
+      "coverage": {
+        "expected_records": 1,
+        "processed_records": 1,
+        "complete": true
+      },
+      "gap": null
+    }
+  ],
+  "connections": [
+    {
+      "schema": "connection/v1",
+      "connection_id": "github-primary",
+      "provider": "GitHub",
+      "account_alias": "dobeutech",
+      "tenant_alias": null,
+      "status": "partial",
+      "owner": null,
+      "data_classes": ["public", "internal"],
+      "capabilities": ["identity-read", "known-file-read", "public-rest-repository-list"],
+      "effective_scopes": ["identity", "known-public-file", "public-repository-metadata"],
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "prohibited_actions": ["issue-write", "pull-request-write", "settings-write", "repository-lifecycle"],
+      "last_verified_at": "2026-09-11T19:44:00Z",
+      "evidence_refs": ["portfolio/connector-status.json", "portfolio/repositories.json"],
+      "pagination_complete": true,
+      "failures": ["Broad repository, team, settings, and private-file operations returned insufficient scope."]
+    },
+    {
+      "schema": "connection/v1",
+      "connection_id": "supabase-read-fallback",
+      "provider": "Supabase via Composio",
+      "account_alias": null,
+      "tenant_alias": null,
+      "status": "partial",
+      "owner": null,
+      "data_classes": ["internal", "confidential"],
+      "capabilities": ["project-metadata-read", "service-health-read", "schema-metadata-read", "advisor-read"],
+      "effective_scopes": ["four-project-metadata"],
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "prohibited_actions": ["row-data-read", "sql-write", "migration", "branch-write", "function-deploy", "project-lifecycle"],
+      "last_verified_at": "2026-09-11T19:44:00Z",
+      "evidence_refs": ["portfolio/connector-status.json"],
+      "pagination_complete": null,
+      "failures": ["Native Supabase project enumeration is scope-blocked."]
+    },
+    {
+      "schema": "connection/v1",
+      "connection_id": "make-primary",
+      "provider": "Make",
+      "account_alias": null,
+      "tenant_alias": null,
+      "status": "conflict",
+      "owner": null,
+      "data_classes": ["internal", "confidential"],
+      "capabilities": ["connection-discovery"],
+      "effective_scopes": [],
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "prohibited_actions": ["scenario-run", "scenario-write", "credential-write", "billing-write", "customer-data-write"],
+      "last_verified_at": "2026-09-11T19:44:00Z",
+      "evidence_refs": ["portfolio/connector-status.json", "portfolio/cost-map.json#prepaid_capacity"],
+      "pagination_complete": false,
+      "failures": ["Organization visibility differs between observations.", "Scenario, blueprint, execution history, and API-verified credit data are unavailable."]
+    },
+    {
+      "schema": "connection/v1",
+      "connection_id": "composio-workbench",
+      "provider": "Composio",
+      "account_alias": null,
+      "tenant_alias": null,
+      "status": "ready",
+      "owner": null,
+      "data_classes": ["public", "internal", "confidential"],
+      "capabilities": ["connector-discovery", "schema-discovery", "read-execution", "remote-workbench"],
+      "effective_scopes": ["use-case-specific-read"],
+      "allowed_actions": ["read", "normalize", "validate", "report"],
+      "prohibited_actions": ["unschematized-call", "cross-account-inference", "unapproved-write", "durable-memory"],
+      "last_verified_at": "2026-09-11T19:44:00Z",
+      "evidence_refs": ["portfolio/connector-status.json", "spec.md#30.5"],
+      "pagination_complete": null,
+      "failures": []
+    }
+  ],
+  "projects": [
+    {
+      "schema": "project-mapping/v1",
+      "project_id": "supabase-routeready",
+      "provider": "Supabase",
+      "project_alias": "RouteReady",
+      "status": "active",
+      "mapping_status": "unmapped",
+      "repository_id": null,
+      "deployment_id": null,
+      "data_owner": null,
+      "data_class": "unknown",
+      "backup_verified": null,
+      "monthly_cost_usd": 15,
+      "evidence_refs": ["portfolio/connector-status.json", "portfolio/cost-map.json"]
+    },
+    {
+      "schema": "project-mapping/v1",
+      "project_id": "supabase-dobe-net",
+      "provider": "Supabase",
+      "project_alias": "supabase-dobe-net",
+      "status": "active",
+      "mapping_status": "unmapped",
+      "repository_id": null,
+      "deployment_id": null,
+      "data_owner": null,
+      "data_class": "unknown",
+      "backup_verified": null,
+      "monthly_cost_usd": null,
+      "evidence_refs": ["portfolio/connector-status.json"]
+    },
+    {
+      "schema": "project-mapping/v1",
+      "project_id": "supabase-ikram-meme-and-co",
+      "provider": "Supabase",
+      "project_alias": "ikram-meme-and-co",
+      "status": "inactive",
+      "mapping_status": "unmapped",
+      "repository_id": null,
+      "deployment_id": null,
+      "data_owner": null,
+      "data_class": "unknown",
+      "backup_verified": null,
+      "monthly_cost_usd": null,
+      "evidence_refs": ["portfolio/connector-status.json"]
+    },
+    {
+      "schema": "project-mapping/v1",
+      "project_id": "supabase-dot-copilot",
+      "provider": "Supabase",
+      "project_alias": "dot-copilot",
+      "status": "active",
+      "mapping_status": "unmapped",
+      "repository_id": null,
+      "deployment_id": null,
+      "data_owner": null,
+      "data_class": "unknown",
+      "backup_verified": null,
+      "monthly_cost_usd": null,
+      "evidence_refs": ["portfolio/connector-status.json"]
+    }
+  ],
+  "memory_candidates": [],
+  "tasks": [
+    {
+      "schema": "task-envelope/v1",
+      "task_id": "foundation-first-slice",
+      "objective": "Implement deterministic, read-only internal foundation contracts, fixtures, validation, and readiness reporting.",
+      "scope_refs": ["spec.md#31.9", "portfolio/"],
+      "data_class": "internal",
+      "allowed_tools": ["local-filesystem", "jq", "shell", "ona-validation"],
+      "approval_class": "internal_read_only",
+      "external_writes_allowed": false,
+      "status": "approved",
+      "budget": {
+        "max_workers": 1,
+        "max_tool_calls": 100,
+        "max_elapsed_minutes": 120,
+        "max_cost_usd": 0
+      },
+      "success_criteria": [
+        "Versioned schemas and semantic validators pass.",
+        "Partial, conflicting, rejected, malicious, duplicate, and unverified-payment fixtures are covered.",
+        "A deterministic readiness report names the next access and approval gates.",
+        "Ona exposes a reproducible validation task."
+      ],
+      "stop_conditions": [
+        "An external write is required.",
+        "A secret or customer row would be accessed.",
+        "A baseline artifact changes without an intentional snapshot update.",
+        "Validation cannot fail closed."
+      ]
+    }
+  ],
+  "handoffs": [],
+  "usage_outcomes": [],
+  "approvals": [
+    {
+      "schema": "approval/v1",
+      "approval_id": "G0",
+      "approval_class": "implementation",
+      "action": "Start the bounded internal-foundation implementation slice in spec.md Section 31.9.",
+      "status": "approved",
+      "requested_from": "workspace-owner",
+      "decided_by": "session-user",
+      "decided_at": "2026-09-11T20:25:55Z",
+      "evidence_refs": ["spec.md#31.9", "conversation:2026-09-11:start-implementation"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G1",
+      "approval_class": "access",
+      "action": "Expand or reauthenticate GitHub, Supabase, Make, Sentry, or other connector access.",
+      "status": "not_requested",
+      "requested_from": "workspace-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G2",
+      "approval_class": "internal_pilot",
+      "action": "Provision the internal assistant database branch, retention policy, identities, and gateway keys.",
+      "status": "not_requested",
+      "requested_from": "security-data-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G3",
+      "approval_class": "automation_write",
+      "action": "Enable any issue, comment, pull request, scenario, database, or deployment write.",
+      "status": "not_requested",
+      "requested_from": "system-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G4",
+      "approval_class": "commercial_launch",
+      "action": "Publish the offer, enable payment collection, enrich contacts, or send outreach.",
+      "status": "not_requested",
+      "requested_from": "commercial-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7", "portfolio/launch-readiness.json"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G5",
+      "approval_class": "billing",
+      "action": "Pause, downgrade, cancel, purchase, or replace a subscription.",
+      "status": "not_requested",
+      "requested_from": "billing-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7", "portfolio/cost-map.json"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G6",
+      "approval_class": "repository_lifecycle",
+      "action": "Consolidate, archive, transfer, or delete a repository.",
+      "status": "not_requested",
+      "requested_from": "repository-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7", "portfolio/revenue-ranking.md"],
+      "expires_at": null
+    },
+    {
+      "schema": "approval/v1",
+      "approval_id": "G7",
+      "approval_class": "productization",
+      "action": "Offer a hosted external engineering-memory or governance product.",
+      "status": "not_requested",
+      "requested_from": "business-security-owner",
+      "decided_by": null,
+      "decided_at": null,
+      "evidence_refs": ["spec.md#31.7"],
+      "expires_at": null
+    }
+  ],
+  "revenue_events": [],
+  "conflicts": [
+    {
+      "conflict_id": "make-organization-visibility",
+      "subject": "Make organization, team, scenario, and usage visibility",
+      "status": "open",
+      "evidence_refs": ["portfolio/connector-status.json", "portfolio/cost-map.json#prepaid_capacity"],
+      "resolution_required": "Run a new read-only account-scoped inventory and reconcile it to the billing screenshot before building or scheduling a scenario."
+    }
+  ]
+}

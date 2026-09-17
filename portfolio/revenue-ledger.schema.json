@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://internal.dobeu.example/schemas/revenue-ledger.json",
+  "title": "Dobeu Revenue Evidence Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "currency", "period_start", "period_end", "cost_scope", "opportunities"],
+  "properties": {
+    "$schema": {"const": "revenue-ledger/v1"},
+    "currency": {"const": "USD"},
+    "period_start": {"type": "string", "format": "date"},
+    "period_end": {"type": "string", "format": "date"},
+    "cost_scope": {"type": "string", "minLength": 10},
+    "opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["opportunity_id", "customer_alias", "offer_id", "stage", "proposed_amount_usd", "contracted_amount_usd", "source_repositories", "payments", "evidence_references", "next_action"],
+        "properties": {
+          "opportunity_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{5,63}$"},
+          "customer_alias": {"type": "string", "minLength": 2, "maxLength": 100},
+          "offer_id": {"enum": ["staffing_workflow_diagnostic", "staffing_implementation_sprint", "staffing_monitoring_retainer", "engineering_memory_diagnostic", "other_approved"]},
+          "stage": {"enum": ["lead", "scope_call", "diagnostic_proposed", "diagnostic_contract_signed", "diagnostic_paid", "diagnostic_delivering", "diagnostic_complete", "implementation_proposed", "implementation_contracted", "implementation_delivering", "retainer", "closed_won", "closed_lost"]},
+          "proposed_amount_usd": {"type": ["number", "null"], "minimum": 0},
+          "contracted_amount_usd": {"type": ["number", "null"], "minimum": 0},
+          "source_repositories": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "payments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["payment_id", "kind", "amount_usd", "status", "collected_at", "evidence_reference", "unaffiliated_customer"],
+              "properties": {
+                "payment_id": {"type": "string", "pattern": "^[a-zA-Z0-9._-]{6,100}$"},
+                "kind": {"enum": ["payment", "refund"]},
+                "amount_usd": {"type": "number", "exclusiveMinimum": 0},
+                "status": {"enum": ["pending", "settled", "failed", "reversed"]},
+                "collected_at": {"type": ["string", "null"], "format": "date-time"},
+                "evidence_reference": {"type": ["string", "null"], "maxLength": 500},
+                "unaffiliated_customer": {"type": "boolean"}
+              }
+            }
+          },
+          "evidence_references": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 500}, "uniqueItems": true},
+          "next_action": {"type": "string", "minLength": 3, "maxLength": 500}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dobeu.tech/schemas/approval/v1",
+  "title": "Approval checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "approval_id",
+    "approval_class",
+    "action",
+    "status",
+    "requested_from",
+    "decided_by",
+    "decided_at",
+    "evidence_refs",
+    "expires_at"
+  ],
+  "properties": {
+    "schema": {"const": "approval/v1"},
+    "approval_id": {"type": "string", "minLength": 1},
+    "approval_class": {
+      "enum": ["implementation", "access", "internal_pilot", "automation_write", "commercial_launch", "billing", "repository_lifecycle", "productization"]
+    },
+    "action": {"type": "string", "minLength": 1},
+    "status": {"enum": ["not_requested", "pending", "approved", "denied", "expired"]},
+    "requested_from": {"type": "string", "minLength": 1},
+    "decided_by": {"type": ["string", "null"]},
+    "decided_at": {"type": ["string", "null"], "format": "date-time"},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "expires_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

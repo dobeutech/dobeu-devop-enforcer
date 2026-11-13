@@ -28,24 +28,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # --- Example: Node/TypeScript. Delete or replace for your stack. ---
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: "20"
-          cache: "npm"
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: pyproject.toml
+
+      - name: Install Poetry
+        run: python -m pip install "poetry==2.2.1"
 
       - name: Install dependencies
-        run: npm ci
-
-      # --- Example: Python (uncomment / adapt) ---
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: "3.12"
-      # - name: Install dependencies
-      #   run: pip install -r requirements.txt
-
-      # Pre-warm anything expensive the agent will need (build caches, codegen,
-      # downloading models/datasets, etc.) so the agent spends its time coding,
-      # not waiting on setup.
+        run: poetry install --with dev --no-interaction
